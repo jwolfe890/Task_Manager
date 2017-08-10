@@ -1,0 +1,13 @@
+# TODO 
+- [..] Create a Todo App
+- [] See a list of todos rendered in JS
+- [] A form to add a todo that makes an ajax post request and renders the new todo to the dom 
+- [] A delete button to delete a todo and remove the todo from the dom 
+- [] A edit button to make the todo a editable and when saved makes a put request to update the todo and updates the dom 
+- [] A check button that marks a todo as complete and makes text strike through 
+- [] GET /todos, GET /todos/:id, POST /todos, PUT /todos/:id, DELETE /todos/:id
+- [X] Todo Model (name:string, location:string, complete:bool, date:datetime)
+- [X] One route to render the app at /
+
+# Story 
+- User goes to the homepage and sees a list of todos that are marked as complete or incomplete and a form to add a todo, and each todo has an edit, delete or complete button
