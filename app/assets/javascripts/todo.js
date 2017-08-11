@@ -6,6 +6,9 @@ $(function() {
   // })
 
   $('.new-todo').on("click", function() {
+
+    debugger
+
      fetch(`/todos.json`)
       .then(res => res.json()) 
       .then(todos => {
@@ -61,7 +64,7 @@ $(function() {
     let todoHtml = `
     <li class="${this.id}">
       <div class="view">
-        <form class="new_todo" id="new_todo" action="/todos" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="70pEhOQimOzX8VG0JUpH4aFZsws4TSjqlEWxVIE/zinQeVreRnwYsLUYG7mC32F3vmLa9lcBqKKfGSDFLNklLQ==">
+        <form class="new_todo" id="new_todo2" action="/todos" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="70pEhOQimOzX8VG0JUpH4aFZsws4TSjqlEWxVIE/zinQeVreRnwYsLUYG7mC32F3vmLa9lcBqKKfGSDFLNklLQ==">
           <input name="todo[status]" type="hidden" value="0"><input class="toggle" type="checkbox" value="${this.id}" name="todo[status]" id="todo_status">
        </form>          
           <label>${this.name}</label>
@@ -73,24 +76,38 @@ $(function() {
     return todoHtml
   }
 
-  Todo.prototype.formatEdit = function() {
-    let todoHtml = `
-      <li class="${this.id}">
-      <div class="view">
-      <form class="edit_todo">
-         <input name="utf8" type="hidden" value="✓">
-         <input type="hidden" name="authenticity_token" value="nBtPJcHW3vUnsilMR5bBJ2PQ9UP9Q4ywy6nEQPm9n7mjKFF/Y4heqUVbY0HgA+exfOucvpIPDPjA9VXRVFt0vQ==">
-         <input type="hidden" name="todo[id]" value="${this.id}">
-         <label><input type="text" value="${this.name}" name="todo[name]" id="todo_name"></label>
-         <input type="submit" name="commit" value="Update Todo">
-      </form>
-      </div>
-      </li>
+  // Todo.prototype.formatEdit = function() {
+  //   let todoHtml = `
+  //     <li class="${this.id}">
+  //     <div class="view">
+  //     <form class="edit_todo">
+  //        <input name="utf8" type="hidden" value="✓">
+  //        <input type="hidden" name="authenticity_token" value="nBtPJcHW3vUnsilMR5bBJ2PQ9UP9Q4ywy6nEQPm9n7mjKFF/Y4heqUVbY0HgA+exfOucvpIPDPjA9VXRVFt0vQ==">
+  //        <input type="hidden" name="todo[id]" value="${this.id}">
+  //        <label><input type="text" value="${this.name}" name="todo[name]" id="todo_name"></label>
+  //        <input type="submit" name="commit" value="Update Todo">
+  //     </form>
+  //     </div>
+  //     </li>
+  //   `
+  //   return todoHtml
+  // }
+
+
+ Todo.prototype.formatEdit = function() {
+    let todoHtml = 
     `
+   <li class=“${this.id}“>
+   <div class=“view”>
+    <form class ="editTodo onSubmit=getEd()">
+      <label><input type="text" value="${this.name}" name="todo[name]" id="todo_name"></label>
+      <input type="submit" name="commit" value="Update Todo">
+    </form>
+    </div>
+    </li>
+  `
     return todoHtml
   }
-
-  // data-disable-with="Update Todo"
 
   $(document).on("click", ".ugh3", function(e) {
       e.preventDefault()
@@ -107,12 +124,21 @@ $(function() {
       })
   })
 
+  // $('form.new_todo2').on("submit", function(e) {
+  //   debugger
+  // })
 
-  $("form.edit_todo").on("submit", function (e) {
+$(document).on('submit', '.editTodo', function(e) {
   debugger
-    e.preventDefault();
-    return false;
- })
+})
+
+  // const functionName = getEd => { 
+  //   e.preventDefault;
+  //   return false;
+
+  //   debugger }
+
+
 
 
 
@@ -164,4 +190,6 @@ $(function() {
       // </form>
       // </div>
       // </li>
+
+
 
