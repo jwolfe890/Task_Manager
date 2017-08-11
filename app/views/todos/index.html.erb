@@ -1,6 +1,6 @@
 <section class="todoapp">
   <header class="header">
-    <h3 class="new-todo">ADD A NEW TODO</h3>
+    <div><h3 class="new-todo">ADD A NEW TODO</h3></div>
     <%= form_for(@todo) do |f| %>
       <%= f.text_field :name, :class => "new-todo", :placeholder => (@todo.errors.full_messages_for(:name).first || "Enter a new TODO...") %>
       <%= f.text_field :location, :class => "new-todo", :placeholder => (@todo.errors.full_messages_for(:location).first || "Enter a location...") %>
@@ -10,7 +10,7 @@
   </header>
 
   <section class="main">
-    <h3 class="new-todo">ALL YOUR TODOS</h3>
+    <div><h3 class="new-todo">ALL YOUR TODOS</h3></div>
     <ul class="todo-list">
     </ul>
 

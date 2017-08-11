@@ -2,8 +2,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-/*  background-image: url(fear.jpg);
-*/  background-color: blue;
+  background-image: url(notepad.jpg);
+  background-color: blue;
 }
 
 .ugh {
@@ -11,6 +11,10 @@ body {
 }
 
 .ugh2 {
+  margin-left: 475px;
+}
+
+.ugh3 {
   margin-left: 475px;
 }
 
@@ -120,6 +124,12 @@ input[type="checkbox"] {
   border: none;
   background: rgba(0, 0, 0, 0.003);
   box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
+}
+
+div .new-todo {
+  font-weight: bold;
+  text-align: center;
+  padding-right: 65px;
 }
 
 .main {
