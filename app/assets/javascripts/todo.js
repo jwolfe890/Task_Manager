@@ -77,18 +77,20 @@ $(function() {
     let todoHtml = `
       <li class="${this.id}">
       <div class="view">
-      <form class="edit_todo" id="edit_todo_${this.id}" accept-charset="UTF-8">
+      <form class="edit_todo">
          <input name="utf8" type="hidden" value="✓">
          <input type="hidden" name="authenticity_token" value="nBtPJcHW3vUnsilMR5bBJ2PQ9UP9Q4ywy6nEQPm9n7mjKFF/Y4heqUVbY0HgA+exfOucvpIPDPjA9VXRVFt0vQ==">
          <input type="hidden" name="todo[id]" value="${this.id}">
          <label><input type="text" value="${this.name}" name="todo[name]" id="todo_name"></label>
-         <input type="submit" name="commit" value="Update Todo" data-disable-with="Update Todo" class="edit_${this.id}">
+         <input type="submit" name="commit" value="Update Todo">
       </form>
       </div>
       </li>
     `
     return todoHtml
   }
+
+  // data-disable-with="Update Todo"
 
   $(document).on("click", ".ugh3", function(e) {
       e.preventDefault()
@@ -105,8 +107,9 @@ $(function() {
       })
   })
 
- $(".edit_153").on("click", function(e) {
-      debugger
+
+  $("form.edit_todo").on("submit", function (e) {
+  debugger
     e.preventDefault();
     return false;
  })
@@ -161,5 +164,4 @@ $(function() {
       // </form>
       // </div>
       // </li>
-
 
