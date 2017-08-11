@@ -1,6 +1,7 @@
 class TodosController < ApplicationController
 
 def create
+  binding.pry
   @todo = Todo.new(todo_params)
   @todo.save
   render json: @todo
@@ -15,16 +16,19 @@ def index
     end
 end
 
-def put
+def update
+  binding.pry
 end 
 
 def show
+  binding.pry
+  @todo = Todo.find_by(id: params[:id].to_i)
+  render json: @todo
 end
 
 def destroy
   @todo = Todo.find_by(id: params[:id])
   @todo.destroy
-  redirect_to action: "index"
 end
 
 private
