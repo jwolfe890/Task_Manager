@@ -12,30 +12,13 @@
 
 ActiveRecord::Schema.define(version: 20170808060720) do
 
-  create_table "items", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "list_id"
-    t.boolean  "complete"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "lists", force: :cascade do |t|
-    t.string   "name"
-    t.string   "location"
-    t.boolean  "complete"
-    t.datetime "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "todos", force: :cascade do |t|
     t.string   "name"
     t.string   "location"
-    t.boolean  "complete"
+    t.boolean  "complete",   default: false
     t.datetime "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
 end

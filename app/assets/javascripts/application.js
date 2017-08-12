@@ -14,3 +14,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+
+$(document).ajaxComplete(function( event, xhr, settings ) { 
+  header_token = xhr.getResponseHeader('X-CSRF-Token'); 
+  if (header_token) $('meta[name=csrf-token]').attr('content', header_token) 
+});
+

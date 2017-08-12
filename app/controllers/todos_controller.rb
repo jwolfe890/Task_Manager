@@ -9,22 +9,25 @@ end
 def index
   @todo = Todo.new
   @todos = Todo.all
-   respond_to do |format|
-      format.html { render 'index.js.erb' }
-      format.json { render :json => @todos  }
-      format.js { render 'index.js.erb' }
-    end
+  respond_to do |format|
+    format.html {  }
+    format.json { render json: @todos  }
+    format.js   {  }
+  end
 end
 
 def update
-
-  binding.pry
-
   @todo = Todo.find_by(id: params[:id])
-  @todo.update(todo_params)
-  @todos = Todo.all
-  render 'index.js.erb'
-  # render json: @todos
+  if params[:todo][:condition] == "true"
+    @todo.complete = !@todo.complete
+    @todo.save
+    @todos = Todo.all
+    render json: @todos
+  else 
+    @todo.update(todo_params)
+    @todos = Todo.all
+    render json: @todos
+  end
 end 
 
 def show
