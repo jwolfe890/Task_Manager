@@ -1,77 +1,66 @@
 jQuery(document).on('ready page:load', function() {
   
-  $(window).on("load", function() {
-     $(".todo-list").html("")
-     fetch(`/todos.json`)
-      .then(res => res.json()) 
-      .then(todos => {
-          todos.forEach(todo => {
-          let newTodo = new Todo(todo)
-          let todoHtml = newTodo.formatIndex()
-          $('.todo-list').append(todoHtml)
-        })
-      })
+    $(window).on("load", function() {
+      loadPage()
     })
 
-  function loadPage() {
-      $(".todo-list").html("")
-      fetch(`/todos.json`)
-      .then(res => res.json()) 
-      .then(todos => {
-        todos.forEach(todo => {
-          let newTodo = new Todo(todo)
-          let todoHtml = newTodo.formatIndex()
-          $('.todo-list').append(todoHtml)
-        })
-      })
-  }
-
     $(document).on('load', function() {
-      $.ajax({
-        type: "GET",
-        url: '/todos.json',
-        success: function(todos) {
-          todos.forEach(todo => {
-            let newTodo = new Todo(todo)
-            let todoHtml = newTodo.formatIndex()
-            $('.todo-list').append(todoHtml)
-          })
-        }
-      })
+        loadPage()
     })
 
   $('form.new_todo').on('submit', function (e) {
-      debugger
       var url = "/todos";
       $.ajax({
         type: "POST",
         url: url,
         data: $("#new_todo").serialize(),
-        success: function(data)
+        success: function(todo)
         {
           $("#todo_name").val("")
-          $("#todo_location").html("")
-          $("#todo_date").html("")
-          let newTodo = new Todo(data)
-          let todoHtml = newTodo.formatIndex()
-          $('.todo-list').append(todoHtml)
+          $("#todo_location").val("")
+          $("#todo_date").val("")
+          if (todo.complete) {
+              let newTodo = new Todo(todo)
+              let todoHtml = newTodo.completeIndex()
+              $('.todo-list').append(todoHtml)
+            } else {
+              let newTodo = new Todo(todo)
+              let todoHtml = newTodo.incompleteIndex()
+              $('.todo-list').append(todoHtml)
+          }
         }
       });
       e.preventDefault()
       return false;
-    }) 
+    })
 
-  $(document).on("click", ".ugh3", function(e) {
+  $(document).on("click", ".editB", function(e) {
       e.preventDefault()
       let id = e.target.id
       let event = e
       $.ajax({
         type: "GET",
-        url: `/todos/${id}`,
-        success: function(response) {
-            let newTodo = new Todo(response)
-            let todoHtml = newTodo.formatEdit()
-            $('.todo-list').append(todoHtml)
+        url: `/todos.json`,
+        success: function(todos) {
+          $(".todo-list").html("")
+          todos.forEach(todo => {
+            if (todo.id == id) {
+              let newTodo = new Todo(todo)
+              let todoHtml = newTodo.formatEdit()
+              $('.todo-list').append(todoHtml)
+            } else {
+              if (todo.complete) {
+              let newTodo = new Todo(todo)
+              let todoHtml = newTodo.completeIndex()
+              $('.todo-list').append(todoHtml)
+            } else {
+              let newTodo = new Todo(todo)
+              let todoHtml = newTodo.incompleteIndex()
+              $('.todo-list').append(todoHtml)
+            }
+            }
+          })
+
         }
       })
   })
@@ -91,9 +80,15 @@ jQuery(document).on('ready page:load', function() {
             url: '/todos.json',
             success: function(todos) {
               todos.forEach(todo => {
+          if (todo.complete) {
               let newTodo = new Todo(todo)
-              let todoHtml = newTodo.formatIndex()
+              let todoHtml = newTodo.completeIndex()
               $('.todo-list').append(todoHtml)
+            } else {
+              let newTodo = new Todo(todo)
+              let todoHtml = newTodo.incompleteIndex()
+              $('.todo-list').append(todoHtml)
+          }
           })
         }
       })
@@ -101,7 +96,7 @@ jQuery(document).on('ready page:load', function() {
     })
   })
 
-  $(document).on("click", ".ugh2", function(e) {
+  $(document).on("click", ".deleteB", function(e) {
       if (confirm('Are you sure?')) {
       let id = e.target.id
       $.ajax({
@@ -129,22 +124,75 @@ jQuery(document).on('ready page:load', function() {
             'condition': true 
           }
         },
-        success: function(response) {
-          debugger
+        success: function(todos) {
+          $(".todo-list").html("")
+          todos.forEach(todo => {
+            if (todo.complete) {
+              let newTodo = new Todo(todo)
+              let todoHtml = newTodo.completeIndex()
+              $('.todo-list').append(todoHtml)
+            } else {
+              let newTodo = new Todo(todo)
+              let todoHtml = newTodo.incompleteIndex()
+              $('.todo-list').append(todoHtml)
+            }
+          })
         }
       })
   })
 
-    function Todo(todo) {
+// -------------------------------------
+// FUNCTIONS AND PROTOTYPE FUNCTIONS
+
+  function loadPage() {
+      $(".todo-list").html("")
+      fetch(`/todos.json`)
+      .then(res => res.json()) 
+      .then(todos => {
+        todos.forEach(todo => {
+          if (todo.complete) {
+              let newTodo = new Todo(todo)
+              let todoHtml = newTodo.completeIndex()
+              $('.todo-list').append(todoHtml)
+            } else {
+              let newTodo = new Todo(todo)
+              let todoHtml = newTodo.incompleteIndex()
+              $('.todo-list').append(todoHtml)
+          }
+        })
+      })
+  }
+
+  function Todo(todo) {
     this.id = todo.id
     this.name = todo.name
     this.location = todo.location 
     this.date = todo.date
   }
 
-  Todo.prototype.formatIndex = function() {
+  Todo.prototype.completeIndex = function() {
     let todoHtml = `
     <li class="completed">
+      <div class="view">
+        <form class="new_todo" id="new_todo2" action="/todos" accept-charset="UTF-8" method="post">
+          <input name="utf8" type="hidden" value="✓">
+          <input name="todo[status]" type="hidden" value="0">
+          <input class="toggle" type="checkbox" value="${this.id}" name="todo[status]" id="todo_status" checked="checked">
+       </form>          
+          <label>${this.name}</label>
+          <label>${this.date}</label>
+          <label>${this.location}</label>
+          <input type="button" id="${this.id}" value="Delete" class="deleteB"/>
+          <input type="button" id="${this.id}" value="Edit" class="editB"/>
+      </div>
+    </li>
+    `
+    return todoHtml
+  }
+
+  Todo.prototype.incompleteIndex = function() {
+    let todoHtml = `
+    <li>
       <div class="view">
         <form class="new_todo" id="new_todo2" action="/todos" accept-charset="UTF-8" method="post">
           <input name="utf8" type="hidden" value="✓">
@@ -152,8 +200,10 @@ jQuery(document).on('ready page:load', function() {
           <input class="toggle" type="checkbox" value="${this.id}" name="todo[status]" id="todo_status">
        </form>          
           <label>${this.name}</label>
-          <input type="button" id="${this.id}" value="Delete" class="ugh2"/>
-          <input type="button" id="${this.id}" value="Edit" class="ugh3"/>
+          <label>${this.date}</label>
+          <label>${this.location}</label>
+          <input type="button" id="${this.id}" value="Delete" class="deleteB"/>
+          <input type="button" id="${this.id}" value="Edit" class="editB"/>
       </div>
     </li>
     `
@@ -167,8 +217,12 @@ jQuery(document).on('ready page:load', function() {
       <form class="edit_todo">
          <input name="utf8" type="hidden" value="✓">
          <input type="hidden" name="todo[id]" value="${this.id}" id="todo_id">
-         <label><input type="text" value="${this.name}" name="todo[name]" id="todo_name"></label>
-         <input type="submit" name="commit" value="Update Todo">
+         <label>
+           <input type="text" value="${this.name}" name="todo[name]" id="todo_name" autofocus="autofocus">
+           <input value="${this.date}" name="todo[date]" id="datetime" type="datetime-local">
+           <input type="text" value="${this.location}" name="todo[location]" id="todo_name"> 
+         </label>
+         <input type="submit" name="commit" value="Update Todo" class="updateB">
       </form>
       </div>
       </li>
@@ -177,6 +231,3 @@ jQuery(document).on('ready page:load', function() {
   }
 
 })
-
-
-

@@ -6,16 +6,16 @@ body {
 /*  background-color: blue;
 */}
 
-.ugh {
-  margin-left: 500px;
-}
-
-.ugh2 {
+.editB {
   margin-left: 475px;
 }
 
-.ugh3 {
+.deleteB {
   margin-left: 475px;
+}
+
+.updateB {
+  margin-left: 467px;
 }
 
 button {
@@ -224,6 +224,16 @@ label[for='toggle-all'] {
   margin-left: 45px;
   display: block;
   line-height: 1.2;
+  transition: color 0.4s;
+}
+
+.editBox {
+  white-space: pre-line;
+  word-break: break-all;
+  padding: 15px 60px 15px 15px;
+  display: block;
+  line-height: 1.2;
+  font-size: 24px;
   transition: color 0.4s;
 }
 
