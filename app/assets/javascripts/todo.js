@@ -164,10 +164,16 @@ jQuery(document).on('ready page:load', function() {
   }
 
   function Todo(todo) {
+
+  let d = todo.date
+  let d2 = new Date(d)
+  let d3 = d2.toDateString().replace(" ", ", ")     
+
     this.id = todo.id
     this.name = todo.name
     this.location = todo.location 
-    this.date = todo.date
+    this.dateTime = d3
+    this.date = todo.date 
   }
 
   Todo.prototype.completeIndex = function() {
@@ -180,7 +186,7 @@ jQuery(document).on('ready page:load', function() {
           <input class="toggle" type="checkbox" value="${this.id}" name="todo[status]" id="todo_status" checked="checked">
        </form>          
           <label>${this.name}</label>
-          <label>${this.date}</label>
+          <label>${this.dateTime}</label>
           <label>${this.location}</label>
           <input type="button" id="${this.id}" value="Delete" class="deleteB"/>
           <input type="button" id="${this.id}" value="Edit" class="editB"/>
@@ -200,7 +206,7 @@ jQuery(document).on('ready page:load', function() {
           <input class="toggle" type="checkbox" value="${this.id}" name="todo[status]" id="todo_status">
        </form>          
           <label>${this.name}</label>
-          <label>${this.date}</label>
+          <label>${this.dateTime}</label>
           <label>${this.location}</label>
           <input type="button" id="${this.id}" value="Delete" class="deleteB"/>
           <input type="button" id="${this.id}" value="Edit" class="editB"/>
@@ -219,7 +225,7 @@ jQuery(document).on('ready page:load', function() {
          <input type="hidden" name="todo[id]" value="${this.id}" id="todo_id">
          <label>
            <input type="text" value="${this.name}" name="todo[name]" id="todo_name" autofocus="autofocus">
-           <input value="${this.date}" name="todo[date]" id="datetime" type="datetime-local">
+           <input value="${this.date}" name="todo[date]" id="date" type="date">
            <input type="text" value="${this.location}" name="todo[location]" id="todo_name"> 
          </label>
          <input type="submit" name="commit" value="Update Todo" class="updateB">
@@ -229,5 +235,6 @@ jQuery(document).on('ready page:load', function() {
     `
     return todoHtml
   }
+
 
 })
