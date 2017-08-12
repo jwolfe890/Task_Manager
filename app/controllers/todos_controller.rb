@@ -10,16 +10,21 @@ def index
   @todo = Todo.new
   @todos = Todo.all
    respond_to do |format|
-      format.html
+      format.html { render 'index.js.erb' }
       format.json { render :json => @todos  }
+      format.js { render 'index.js.erb' }
     end
 end
 
 def update
+
+  binding.pry
+
   @todo = Todo.find_by(id: params[:id])
   @todo.update(todo_params)
   @todos = Todo.all
-  render json: @todos
+  render 'index.js.erb'
+  # render json: @todos
 end 
 
 def show

@@ -2,11 +2,6 @@ jQuery(document).on('ready page:load', function() {
 
 
 // $(function() {
-
-  // $("input.toggle").on("change", function() {
-  //   $(this).parents("form").trigger("submit")
-  // })
-
   // $('.new-todo').on("click", function() {
   //    $(".todo-list").html("")
   //    fetch(`/todos.json`)
@@ -20,12 +15,14 @@ jQuery(document).on('ready page:load', function() {
   //     })
   //   })
 
+
+
   $(window).on("load", function() {
      $(".todo-list").html("")
      fetch(`/todos.json`)
       .then(res => res.json()) 
       .then(todos => {
-        todos.forEach(todo => {
+          todos.forEach(todo => {
           let newTodo = new Todo(todo)
           let todoHtml = newTodo.formatIndex()
           $('.todo-list').append(todoHtml)
@@ -96,6 +93,9 @@ jQuery(document).on('ready page:load', function() {
   })
 
   $(document).on('submit', '.edit_todo', function(e) {
+
+      debugger
+
         let id = $("#todo_id").val() 
         e.preventDefault()
         $.ajax({
@@ -135,15 +135,19 @@ jQuery(document).on('ready page:load', function() {
     }
     })
 
-  $(document).on("click", ".ugh3", function(e) {
-      let id = e.target.id
-      $.ajax({
-        type: "DELETE",
+  $(document).on("click", ".toggle", function(e) {
+    
+    e.preventDefault()
+    let id = e.target.value 
+
+debugger
+
+        $.ajax({
+        type: "PUT",
         url: `/todos/${id}`,
+        data: "stuff",
         success: function(response) {
-        },
-        complete: function(data){
-          loadPage()
+          debugger
         }
       })
   })
@@ -155,13 +159,16 @@ jQuery(document).on('ready page:load', function() {
     this.date = todo.date
   }
 
+  // <input name="authenticity_token" type="hidden" value="token_value">
+
+
   Todo.prototype.formatIndex = function() {
     let todoHtml = `
     <li class="${this.id}">
       <div class="view">
         <form class="new_todo" id="new_todo2" action="/todos" accept-charset="UTF-8" method="post">
           <input name="utf8" type="hidden" value="✓">
-          <input name="authenticity_token" type="hidden" value="token_value">
+          <input type='hidden' name='authenticity_token' value='" + csrf-token + "'>
           <input name="todo[status]" type="hidden" value="0">
           <input class="toggle" type="checkbox" value="${this.id}" name="todo[status]" id="todo_status">
        </form>          
