@@ -165,15 +165,24 @@ jQuery(document).on('ready page:load', function() {
 
   function Todo(todo) {
 
-  let d = todo.date
-  let d2 = new Date(d)
-  let d3 = d2.toDateString().replace(" ", ", ")     
-
+  if (todo.date != null) {
+    let d = todo.date
+    let d2 = new Date(d)
+    let d3 = d2.toDateString().replace(" ", ", ")   
+    this.dateTime = d3   
+    this.date = todo.date
     this.id = todo.id
     this.name = todo.name
-    this.location = todo.location 
-    this.dateTime = d3
-    this.date = todo.date 
+    this.location = todo.location
+  } else { 
+      
+    this.id = todo.id
+    this.name = todo.name
+    this.location = todo.location
+    this.dateTime = ""
+    
+    }
+
   }
 
   Todo.prototype.completeIndex = function() {

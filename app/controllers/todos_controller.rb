@@ -1,9 +1,6 @@
 class TodosController < ApplicationController
 
 def create
-
-  binding.pry
-
   @todo = Todo.new(todo_params)
   @todo.save
   render json: @todo

@@ -9,8 +9,10 @@ body {
 .editB {
   margin-left: 455px;
 
+   position:relative;
+   
    position:absolute;
-   top: 30%;
+   top: 15%;
 
 
     background-color: grey; 
