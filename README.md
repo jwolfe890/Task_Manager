@@ -6,9 +6,9 @@ BEFORE RUNNING THE APPLICATION:
 
 1. Clone the Application
 
-`bundle install`
+2. Run `bundle install`
 
-`rake db:migrate` 
+3. Run `rake db:migrate` 
 
 RUNNING THE APPLICATION: 
 
