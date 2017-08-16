@@ -1,24 +1,21 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* This application currently only works on Chrome Browsers. 
 
-Things you may want to cover:
+BEFORE RUNNING THE APPLICATION: 
 
-* Ruby version
+1. Clone the Application
 
-* System dependencies
+2. Run Bundle Install
 
-* Configuration
+3. Rake db:migrate 
 
-* Database creation
+RUNNING THE APPLICATION: 
 
-* Database initialization
+1. To add a TODO, just enter the name, location, and/or date and press enter. 
 
-* How to run the test suite
+2. To edit a TODO, click on the red edit button to the right of the TODO and then enter and submit the updated values. 
 
-* Services (job queues, cache servers, search engines, etc.)
+3. To delete a TODO, just click the grey delete button. 
 
-* Deployment instructions
-
-* ...
+4. To mark a TODO as complete, just check the open box to the left of the TODO and check the TODO. The todo will then have a strikethrough marking it checked off. You can also uncomplete the TODO by rechecking the box.   
