@@ -2,13 +2,11 @@
 
 * This application currently only works on Chrome Browsers. 
 
-BEFORE RUNNING THE APPLICATION: 
+AFTER CLONING THE REPOSITORY: 
 
-1. Clone the Application
+1. Run `bundle install`
 
-2. Run `bundle install`
-
-3. Run `rake db:migrate` 
+2. Run `rake db:migrate` 
 
 RUNNING THE APPLICATION: 
 

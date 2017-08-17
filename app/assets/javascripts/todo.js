@@ -181,9 +181,7 @@ jQuery(document).on('ready page:load', function() {
     this.id = todo.id
     this.name = todo.name
     this.location = todo.location
-
-    debugger
-
+    
   } else { 
       
     this.id = todo.id
