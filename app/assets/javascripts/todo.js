@@ -48,6 +48,7 @@ jQuery(document).on('ready page:load', function() {
               let newTodo = new Todo(todo)
               let todoHtml = newTodo.formatEdit()
               $('.todo-list').append(todoHtml)
+              document.getElementById("date").value = todo.date.match(/^(.*?)T/)[1]
             } else {
               if (todo.complete) {
               let newTodo = new Todo(todo)
@@ -88,12 +89,12 @@ jQuery(document).on('ready page:load', function() {
               let newTodo = new Todo(todo)
               let todoHtml = newTodo.incompleteIndex()
               $('.todo-list').append(todoHtml)
-          }
+            }
           })
         }
       })
-      },
-    })
+    },
+  })
   })
 
   $(document).on("click", ".deleteB", function(e) {
@@ -166,14 +167,23 @@ jQuery(document).on('ready page:load', function() {
   function Todo(todo) {
 
   if (todo.date != null) {
-    let d = todo.date
-    let d2 = new Date(d)
-    let d3 = d2.toDateString().replace(" ", ", ")   
+
+    let d = ""
+    let d2 = ""
+    let d3 = ""  
+
+    d = todo.date
+    d2 = new Date(d)
+    d3 = d2.toDateString().replace(" ", ", ")   
     this.dateTime = d3   
     this.date = todo.date
+
     this.id = todo.id
     this.name = todo.name
     this.location = todo.location
+
+    debugger
+
   } else { 
       
     this.id = todo.id
